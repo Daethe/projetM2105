@@ -60,15 +60,24 @@ function findAll($table) {
  * @param array $search Paramètres de recherche
  * @return array|null
  */
-function find($table, $search = []) {
+function find($table, $search = [], $order = []) {
     if (is_array($search) && is_string(key($search))) {
         $query = "SELECT * FROM $table WHERE ";
-        $last = getLastArrayKey($search);
-        foreach ($search as $key => $value) {
-            if (is_string($value)) {
-                $value = "'" . $value . "'";
+        if ($search !== []) {
+            $last = getLastArrayKey($search);
+            foreach ($search as $key => $value) {
+                if (is_string($value)) {
+                    $value = "'" . $value . "'";
+                }
+                $query .= "$key = $value" . (($last === $key) ? '': ' AND ');
             }
-            $query .= "$key = $value" . (($last === $key) ? '': ' AND ');
+        }
+        if ($order !== []) {
+            $query .= ' ORDER BY ';
+            $last = getLastArrayKey($order);
+            foreach ($order as $key => $value) {
+                $query .= "$key $value" . (($last === $key) ? '': ',');
+            }
         }
         return runQuery($query, true);
     } else {
