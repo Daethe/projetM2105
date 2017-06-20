@@ -13,25 +13,29 @@
     <body>
         <?php include_once 'Views/static/header.php' ?>
 
-        <?php
+        <div class="row medium-12 columns">
+            <?php
 
-        switch ($_GET['p']) {
-            case "login":
-                include_once 'Views/login.php';
-                break;
-            case "register":
-                include_once 'Views/register.php';
-                break;
-            case "student":
-                include_once 'Views/student.php';
-                break;
-            default:
-                include_once 'Views/home.php';
-        }
+            switch ($_GET['p']) {
+                case "login":
+                    include_once 'Views/login.php';
+                    break;
+                case "register":
+                    include_once 'Views/register.php';
+                    break;
+                case "student":
+                    include_once 'Views/student.php';
+                    break;
+                default:
+                    include_once 'Views/home.php';
+            }
 
-        ?>
+            ?>
+        </div>
 
-        <?php include_once 'Views/static/footer.php' ?>
+        <footer>
+            <?php include_once 'Views/static/footer.php' ?>
+        </footer>
 
         <script src="Assets/js/vendor/jquery.js"></script>
         <script src="Assets/js/vendor/what-input.js"></script>
