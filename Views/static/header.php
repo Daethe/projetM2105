@@ -13,9 +13,9 @@
 			<li>
 				<a href="#">Module</a>
 				<ul class="menu vertical">
-					<li><a href="?=modrt">Module RT</a></li>
-					<li><a href="?=modmmi">Module MMI</a></li>
-					<li><a href="?=allmod">Tout les modules</a></li>
+					<li><a href="?p=modrt">Module RT</a></li>
+					<li><a href="?p=modmmi">Module MMI</a></li>
+					<li><a href="?p=allmod">Tout les modules</a></li>
 				</ul>
 			</li>
 			<li><a href="?p=student">Étudiants</a></li>
