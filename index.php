@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,6 +21,9 @@
                 break;
             case "register":
                 include_once 'Views/register.php';
+                break;
+            case "student":
+                include_once 'Views/student.php';
                 break;
             default:
                 include_once 'Views/home.php';

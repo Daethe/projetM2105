@@ -8,11 +8,13 @@ require_once (str_replace("Database", "", __DIR__) . "global.php");
 function getPDO() {
     try {
         $config = include $_SERVER['DOCUMENT_ROOT'] . '/env.php';
-        return new PDO(
+        $pdo = new PDO(
             "mysql:host=". $config['dbhost'] .";dbname=". $config['dbname'] .";charset=". $config['charset'],
             $config["dbuser"],
             $config["dbpass"]
         );
+        $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        return $pdo;
     } catch(Exception $ex) {
         throw new $ex;
     }
@@ -25,10 +27,16 @@ function getPDO() {
  */
 function runQuery($query, $find = false) {
     try {
-        var_dump($query); die();
         $statement = getPDO()->prepare($query);
         $statement->execute();
-        return ($find) ? $statement->fetchAll(PDO::FETCH_ASSOC) : true;
+        if ($find && $statement->rowCount() !== 0) {
+            if ($statement->rowCount() === 1) {
+                return $statement->fetch();
+            } else {
+                return $statement->fetchAll();
+            }
+        }
+        return null;
     } catch(Exception $ex) {
         throw new $ex;
     }
@@ -52,12 +60,24 @@ function findAll($table) {
  * @param array $search Paramètres de recherche
  * @return array|null
  */
-function find($table, $search = []) {
+function find($table, $search = [], $order = []) {
     if (is_array($search) && is_string(key($search))) {
         $query = "SELECT * FROM $table WHERE ";
-        $last = getLastArrayKey($search);
-        foreach ($search as $key => $value) {
-            $query .= "$key = $value" . (($last === $key) ? '': ' AND ');
+        if ($search !== []) {
+            $last = getLastArrayKey($search);
+            foreach ($search as $key => $value) {
+                if (is_string($value)) {
+                    $value = "'" . $value . "'";
+                }
+                $query .= "$key = $value" . (($last === $key) ? '': ' AND ');
+            }
+        }
+        if ($order !== []) {
+            $query .= ' ORDER BY ';
+            $last = getLastArrayKey($order);
+            foreach ($order as $key => $value) {
+                $query .= "$key $value" . (($last === $key) ? '': ',');
+            }
         }
         return runQuery($query, true);
     } else {

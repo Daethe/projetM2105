@@ -28,4 +28,3 @@
 			<li><a href="?p=register">S'enregistrer</a></li>
 		</ul>
 	</div>
-</div>

@@ -3,10 +3,21 @@
 
     require_once "Object/Database/database.php";
 
-    var_dump(find('enseignants', [
+    $user = find('enseignants', [
         "username" => $_POST['username'],
         "password" => md5($_POST['password'])
-    ]));
+    ], true);
+
+    var_dump($user);
+
+    if (!($user === null)) {
+        $_SESSION['user'] = [
+            'nom' => $user['nom'],
+            'prenom' => $user['prenom']
+        ];
+    }
+
+    unset($user);
 
     ?>
 <?php else: ?>
