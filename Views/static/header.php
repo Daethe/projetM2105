@@ -9,17 +9,17 @@
 <div class="top-bar" style="margin-bottom:20px">
 	<div class="top-bar-left">
 		<ul class="dropdown menu" data-dropdown-menu>
-			<li class="menu-text">Site Title</li>
+			<li class="menu-text">Gestion d'absence des étudiants</li>
 			<li>
-				<a href="#">One</a>
+				<a href="#">Module</a>
 				<ul class="menu vertical">
-					<li><a href="#">One</a></li>
-					<li><a href="#">Two</a></li>
-					<li><a href="#">Three</a></li>
+					<li><a href="?=modrt">Module RT</a></li>
+					<li><a href="?=modmmi">Module MMI</a></li>
+					<li><a href="?=allmod">Tout les modules</a></li>
 				</ul>
 			</li>
-			<li><a href="#">Two</a></li>
-			<li><a href="#">Three</a></li>
+			<li><a href="?p=student">Étudiants</a></li>
+			<li><a href="?p=teacher">Professeur</a></li>
 		</ul>
 	</div>
 	<div class="top-bar-right">
@@ -28,4 +28,3 @@
 			<li><a href="?p=register">S'enregistrer</a></li>
 		</ul>
 	</div>
-</div>
